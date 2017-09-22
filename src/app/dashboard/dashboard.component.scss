@@ -1,0 +1,429 @@
+@import url(http://fonts.googleapis.com/css?family=Dosis:600,500,300);
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+$cText: rgb(250,250,250);
+
+$cPrimary: rgb(32, 24, 24);
+$cSecondary: rgb(250,102,16);
+$cTertiary: rgb(96, 96, 128);
+
+$cPrimaryLight:   lighten($cPrimary,   25%);
+$cPrimaryDark:     darken($cPrimary,   5%);
+$cSecondaryLight: lighten($cSecondary, 10%);
+$cSecondaryDark:   darken($cSecondary, 15%);
+$cTertiaryLight:  lighten($cTertiary,  5%);
+$cTertiaryDark:    darken($cTertiary,  15%);
+
+$cGood: rgb(32,128,192);
+$cAlert: rgb(192,32,48);
+
+$sLineHeight: 1em;
+
+$transparent: 0.67;
+$transparentLight: 0.3;
+$transparentLightest: 0.15;
+$speed: 0.1s;
+$pixel: 0px;
+
+html {
+  background-color: #110d0d;
+}
+@mixin border ($color: $cPrimary) {
+  border: $pixel solid $color;
+  border-radius: 0 0.25em 0 0.25em;
+}
+@mixin shadow ($color: $cPrimary, $amount: 2*$pixel, $hover: false) {
+  box-shadow: $amount 0 0 $color;
+  @if($hover) {
+    &:hover {
+      box-shadow: 0 0 0 $pixel $hover;
+    }
+  }
+}
+* { box-sizing: border-box; }
+.myhtml {
+  font-size: 16px;
+  @media only screen and (max-width : 658px) {
+    font-size: 3.4vw;
+  }
+  @media only screen and (max-width : 424px) {
+    font-size: 7vw;
+  }
+  @media only screen and (min-width : 1200px) {
+    font-size: 1.25vw;
+  }
+}
+.mybody {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: $cPrimaryDark;
+  background-image:
+    linear-gradient(45deg,
+      rgba($cPrimary, 0) 1%,
+      rgba($cPrimary, $transparent) 1.5%,
+      rgba($cPrimary, 0) 3%),
+    linear-gradient(215deg,
+      rgba($cPrimary, 0) 1%,
+      rgba($cPrimary, $transparent) 1.5%,
+      rgba($cPrimary, 0) 3%);
+
+  background-size: 1em 1em;
+  font-family: "Dosis", sans-serif;
+  font-weight: 300;
+  color: $cText;
+  line-height: $sLineHeight;
+}
+div {
+  font-size: 1em;
+  line-height: $sLineHeight;
+  //outline: 1px solid #F00;
+}
+h1, h2, h3, p {
+  font-size: 1em;
+  line-height: 1em;
+  padding: 0;
+  margin: 0;
+}
+h1, h2, h3 {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.header, .footer {
+  transition: all $speed ease-out;
+  font-weight: 300;
+  background: $cTertiaryDark;
+  &:hover {
+    background: rgba($cTertiary, $transparentLight);
+  }
+}
+.header {
+  align-items: baseline;
+  border-bottom: $pixel dotted rgba(0,0,0,1);
+  min-height: 2em;
+  margin: 0 0 1em 0;
+  padding: 0.5em 1em 0.5em 1em;
+  a, p, div {
+    font-size: 1em;
+    text-transform: uppercase;
+    line-height: 1em;
+    display: inline-block;
+    padding: 0 $pixel;
+    font-weight: 300;
+    &:after {
+      display: inline-block;
+      padding: 0 0 0 0.25em;
+      content: "\00BB";
+      color: $cSecondary;
+    }
+  }
+  a {
+    color: $cSecondaryLight;
+    &:hover {
+      text-decoration: underline;
+      color: $cText;
+      background: rgba($cSecondary, $transparent);
+    }
+  }
+  .current {
+    font-weight: 600;
+  }
+}
+.footer {
+  position: fixed;
+  cursor: default;
+  text-align: center;
+  letter-spacing: -4px;
+  border-top: $pixel dotted rgba(0,0,0,1);
+  display: block;
+  width: 100%;
+  height: 2.5em;
+  padding: 0.5em 0.5em 0.5em 1em;
+  bottom: 0;
+  //opacity: $transparentLight;
+  a {
+    padding: 1.5em;
+    font-size: 0.5em;
+    text-decoration: none;
+    color: rgba($cText, 0);
+    transition: all $speed ease-out;
+    &:hover {
+      text-decoration: underline;
+      text-shadow:
+        0-$pixel 0 0 invert($cTertiary),
+        $pixel 0 0 invert($cSecondary);
+    }
+  }
+  &:hover {
+    opacity: 1;
+    letter-spacing: 0.1em;
+    a {
+      color: rgba($cText, 1);
+    }
+  }
+
+}
+.menu {
+  margin: 0 0 0 0.5em;
+  line-height: 1em;
+  width: calc(100% - 1em);
+  position: relative;
+  overflow: hidden;
+  display: block;
+  @include border($cTertiaryDark);
+  background: rgba($cTertiaryDark, $transparentLightest);
+  transition:
+    background $speed*4 ease-out,
+    transform $speed*2 ease-out,
+    box-shadow $speed ease-out;
+  @include shadow ($cTertiary, -2*$pixel, $cSecondary);
+  > a {
+    outline: none;
+    margin: 0;
+    padding: 0 0 1em 0.5em;
+    color: $cText;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: block;
+  }
+  .items {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    .button {
+      font-size: 1em;
+      cursor: pointer;
+      line-height: 1.2em;
+      height: 2em;
+      display: inline-block;
+      margin: 0 1em 1em 0.5em;
+      padding: 0.5em 0 0.5em 0.5em;
+      max-width: 8em;
+      min-width: 8em;
+      @include border($cTertiary);
+      color: $cText;
+      background: rgba($cPrimaryDark,$transparent);
+      box-shadow: 0.2em 0 0 $cTertiary;
+      text-decoration: none;
+      flex: 1;
+      transition: box-shadow $speed*0.5 ease-out;
+      &:hover {
+        color: $cText;
+        background: rgba($cSecondary,$transparent);
+        box-shadow: 0 0 0 $pixel $cSecondaryLight;
+        border: $pixel solid $cSecondaryDark;
+        text-shadow: $pixel 0 $pixel $cSecondaryDark;
+      }
+      &.selected {
+        outline: none;
+        background: rgba($cTertiary,$transparent);
+        box-shadow: 0 0 0 $pixel $cTertiaryLight;
+        border: $pixel solid $cTertiary;
+        text-shadow: $pixel 0 $pixel $cPrimaryLight;
+      }
+      &:active {
+        background: rgba($cTertiary, $transparentLightest);
+        box-shadow: 0 0 0 $pixel $cTertiaryLight;
+      }
+    }
+  }
+  &.closed {
+    height: 2em;
+    background: transparent;
+    width: 12em;
+    transform: translate3d(1em,0,0);
+    padding: 0;
+    @include border($cTertiary);
+    &:hover {
+      color: $cText;
+      background: rgba($cSecondary,$transparent);
+      @include border($cSecondary);
+    }
+    > a {
+      height: 2em;
+    }
+  }
+  &.flash {
+    transition: background $speed*4 ease-out;
+    background: rgba($cSecondary, $transparent);
+  }
+}
+.content {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: 3.5em;
+}
+.view {
+  margin: 1em 0.5em 0 0.5em;
+  padding: 0 0 0 0.5em;
+  @include border($cTertiaryDark);
+  @include shadow($cTertiary, 0-$pixel*2);
+  background: rgba($cTertiaryDark, $transparentLightest);
+  transition: margin $speed ease-out;
+  &:not(.closed) {
+    color: $cText;
+  }
+  &.closed {
+    color: $cTertiaryDark;
+    display: inline-block;
+    overflow: hidden;
+    flex-basis: 1em;
+    margin: 1em 1em 0 1em;
+  }
+  h2 {
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    font-size: 1em;
+    line-height: 1em;
+    height: 2em;
+    &:hover {
+      color: $cSecondary;
+    }
+  }
+}
+.nodelist {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  .node,docker {
+    height: 4em;
+    flex-basis: 14em;
+    line-height: 1em;
+    white-space: nowrap;
+    margin: 0 1em 1em 0;
+    transition: box-shadow $speed ease-out;
+    @include border($cPrimary);
+    &:not(.fail) {
+      box-shadow: inset 0 0 0 0 $cGood,
+      0.05px 0 0 0 $cGood;
+      &:hover {
+        background: $cPrimary;
+        box-shadow: inset 0 0 0 1px $cGood,
+        0.25em 0 0 0 $cGood;
+      }
+    }
+    .icon {
+      float: left;
+      display: inline-block;
+      width: 2em;
+      height: 2em;
+      padding: 0.5em;
+      margin: 0.5em 0.5em 0.5em 0.5em;
+    }
+    ul {
+      display: block;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      &:after {
+        clear: both;
+      }
+      li {
+        margin: 0 0 0 2.5em;
+        display: block;
+        font-size: 0.8em;
+        line-height: 1.2em;
+        a {
+          color: $cText;
+          text-decoration: none;
+          &:hover {
+            color: $cPrimaryLight;
+            text-decoration: underline;
+          }
+        }
+        .data {
+          font-size: inherit;
+          font-weight: 600;
+          display: block;
+          position: relative;
+          margin: -1em 0 0 0;
+          padding: 0 1em 0 0;
+          text-align: right;
+          right:0;
+        }
+      }
+    }
+  }
+}
+.console {
+  font-family: "Ubuntu Mono", "Droid Sans Mono", "Consolas", monospace;
+  color: $cText;
+  margin: 0 auto 1em auto;
+  padding: 0 1em;
+  max-width: 90em;
+  height: 30em;
+  background: $cPrimaryDark;
+  white-space: pre-wrap;
+  font-size: 0.8em;
+  @include border($cPrimary);
+  overflow: scroll;
+}
+
+
+
+.signal {
+  color: $cGood;
+}
+.fail {
+  animation: alertblink $speed*8 ease-in-out infinite;
+  order: -1;
+  .data.signal {
+    color: $cAlert;
+  }
+  &.node,&docker {
+    @include border($cAlert);
+  }
+  &:hover {
+    animation: none;
+    box-shadow: inset 0 0 0 1px $cAlert,
+    0.25em 0 0 0 $cAlert;
+  }
+}
+@keyframes alertblink {
+  0% {
+    background: rgba($cAlert, 0);
+    box-shadow:
+      inset 0 0 2em -1em rgba($cAlert,0),
+      0.05px 0 0 $cAlert;
+  }
+  50% {
+    background: rgba($cAlert, $transparentLightest);
+    box-shadow: inset 0 0 1em -0.5em $cAlert,
+    0.25em 0 0 $cAlert;
+  }
+  100% {
+    background: rgba($cAlert, 0);
+    box-shadow:
+      inset 0 0 2em -1em rgba($cAlert,0),
+      0.05px 0 0 $cAlert;
+  }
+}
+
+
+.bashprompt{
+  color:cornflowerblue !important;
+}
+
+.dockerup{
+  color:green !important;
+}
+
+.dockerdown{
+  color:red !important;
+}
+
+
+.popover-title {
+  padding: 8px 14px;
+  margin-bottom: 0;
+  font-size: 1rem;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-top-right-radius: calc(0.3rem - 1px);
+  border-top-left-radius: calc(0.3rem - 1px);
+  color:#4D90FE;
+}

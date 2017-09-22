@@ -1,0 +1,29 @@
+
+  <popover-content #dockerPopover
+                   title="Docker Details"
+                   [animation]="true"
+                   [closeOnClickOutside]="true" >
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      <button type="button" class="btn btn-secondary btn-warning">Stop</button>
+      <button type="button" class="btn btn-secondary btn-danger">Remove</button>
+      <button type="button" class="btn btn-secondary btn-default">Copy Info</button>
+    </div>
+    <div style="color: #3a3a3a" class="popover-content"><b>{{container?.rawJson}}</b></div>
+
+
+
+  </popover-content>
+
+
+  <div class="icon glyphicon glyphicon-tasks"></div>
+  <ul class="details" [popover]="dockerPopover">
+    <li>Name:<a class="data" href="#192.168.0.32">{{container?.Name}}</a></li>
+    <li>State:
+      <div class="data signal">{{container?.State}}</div>
+    </li>
+    <li>Img:
+      <div class="data">{{container?.Image.split("/")[container?.Image.split("/").length-1]}}</div>
+    </li>
+  </ul>
+
