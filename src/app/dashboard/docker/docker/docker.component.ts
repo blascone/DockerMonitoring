@@ -1,5 +1,6 @@
-import {Component, OnInit, ViewEncapsulation, Input, HostBinding} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter} from '@angular/core';
 import {Docker} from "../../docker-dto/docker-dto.module";
+
 
 @Component({
   selector: 'docker',
@@ -12,18 +13,19 @@ export class DockerComponent implements OnInit {
   @Input()
   container: Docker;
 
+  @Output('stop')
+  stop: EventEmitter<string> = new EventEmitter<string>();
 
 
+  constructor() {
+  }
 
-//isRunning:boolean = false
+  ngOnInit() {
+  }
 
 
-constructor()
-{
-}
-
-ngOnInit()
-{
-}
+  stopContainer(){
+    this.stop.emit(this.container.Id)
+  }
 
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TerradueDockerMonitoring.iml" filepath="$PROJECT_DIR$/.idea/TerradueDockerMonitoring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DockerMonitoring.iml" filepath="$PROJECT_DIR$/.idea/DockerMonitoring.iml" />
     </modules>
   </component>
 </project>

@@ -33,8 +33,7 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
     this.sampleMap = new Map();
 
 
-
-    this.dockerNodes = new Map<string,Docker>();
+    this.dockerNodes = new Map<string, Docker>();
     // subscribed to stats
     this.connection = dockeMonitoring.getDockersUp().subscribe(
       message => {
@@ -45,7 +44,7 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
         this.dockerConsole += "<br/><span class='bashprompt'>bash# </span> <span class='dockerup'> container up! </span>" + message.toString();
 
         console.log("looping running dockers");
-        this.dockerNodes.forEach((value, index, map)=> {
+        this.dockerNodes.forEach((value, index, map) => {
           console.log(value.Id);
         });
 
@@ -61,18 +60,17 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
         this.dockerConsole += "<br/><span class='bashprompt'>bash# </span> <span class='dockerdown'> container down </span>" + message.toString();
 
         console.log("looping running dockers");
-        this.dockerNodes.forEach((value)=> {
+        this.dockerNodes.forEach((value) => {
           console.log(value.Id);
         });
 
 
         console.log("removing " + message.Id);
         if (this.dockerNodes.has(message.Id)) {
-          console.log("setting down");
           message.Status = "Shutting down";
           message.State = "OFFLINE";
           this.dockerNodes.set(message.Id, message);
-          setTimeout(()=> {
+          setTimeout(() => {
             this.dockerNodes.delete(message.Id);
           }, 10000);
 
@@ -91,7 +89,7 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
 
     this.dockeMonitoring.getRunningDockers().subscribe(dockers => {
       for (let value of dockers) {
-        value.rawJson=JSON.stringify(value).toString();
+        value.rawJson = JSON.stringify(value).toString();
         this.dockerNodes.set(value.Id, value);
         // write json to dashboard console
         this.dockerConsole += "<br/><span class='bashprompt'>bash# </span> <span class='dockerup'> container up! </span>" + value.rawJson;
@@ -114,6 +112,16 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
     } catch
       (err) {
     }
+  }
+
+
+  stopContainer(containerId: string) {
+
+    console.log(containerId);
+    this.dockeMonitoring.stopDocker(containerId).subscribe(response => {
+        this.dockerConsole += "<br/><span class='bashprompt'>bash# </span> <span class='dockerup'> container stopped successfully! </span>" + JSON.stringify(response);
+    });
+
   }
 
 }

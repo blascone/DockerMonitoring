@@ -5,9 +5,9 @@
                    [closeOnClickOutside]="true" >
 
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-      <button type="button" class="btn btn-secondary btn-warning">Stop</button>
-      <button type="button" class="btn btn-secondary btn-danger">Remove</button>
-      <button type="button" class="btn btn-secondary btn-default">Copy Info</button>
+      <button type="button" class="btn btn-secondary btn-warning" (click)="stopContainer()">Stop</button>
+<!--      <button type="button" class="btn btn-secondary btn-danger">Remove</button>
+      <button type="button" class="btn btn-secondary btn-default">Copy Info</button>-->
     </div>
     <div style="color: #3a3a3a" class="popover-content"><b>{{container?.rawJson}}</b></div>
 
@@ -18,7 +18,7 @@
 
   <div class="icon glyphicon glyphicon-tasks"></div>
   <ul class="details" [popover]="dockerPopover">
-    <li>Name:<a class="data" href="#192.168.0.32">{{container?.Name}}</a></li>
+    <li>Name:<div class="data"><strong>{{container?.Name}}</strong></div></li>
     <li>State:
       <div class="data signal">{{container?.State}}</div>
     </li>

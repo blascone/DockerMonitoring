@@ -1,4 +1,4 @@
-# TerradueDockerMonitoring
+# DockerMonitoring
 
 Welcome to the project documentation!
 

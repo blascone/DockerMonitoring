@@ -116,6 +116,7 @@ app.get('/stop/:containerId', function (req, res) {
       console.log("inspecting");
       container.inspect(function (err, data) {
         if (data) {
+          console.log(data);
           resolve(data);
         }
         if (err) {
@@ -134,11 +135,18 @@ app.get('/stop/:containerId', function (req, res) {
       // query API for container info
       console.log("stopping");
       container.stop(function (err, data) {
+        console.log(data);
         if (err) {
           reject(err);
         } else {
-          resolve("Success!");
-          res.send("Success!");
+          var successJson = {
+            "status": "success",
+            "data": {},
+            "message": null
+          };
+
+          resolve(successJson);
+          res.send(successJson);
         }
       });
     });

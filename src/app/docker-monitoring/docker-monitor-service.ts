@@ -58,5 +58,12 @@ export class DockerMonitorService {
   }
 
 
+  public stopDocker(containerId:string): Observable<string>{
+    const url = "/stop/" + containerId;
+    return this.http.get(url, { cache: false })
+      .map((res => res.json()));
+
+  }
+
 }
 

@@ -5,7 +5,7 @@
       <div id="dashboard" class="view"><h2>Dashboard</h2>
 
         <div class="nodelist">
-          <docker  *ngFor="let node of dockerNodes | dockerMap" [container]="node" [class.fail]="node.State!='running'"></docker>
+          <docker  *ngFor="let node of dockerNodes | dockerMap" [container]="node" (stop)="stopContainer($event)" [class.fail]="node.State!='running'"></docker>
         </div>
 
       </div>

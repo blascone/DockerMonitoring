@@ -1,4 +1,4 @@
-# TerradueDockerMonitoring
+# DockerMonitoring
 
 This project was generated with [generator-ngx-app](https://github.com/angular-starter-kit/generator-ngx-app/)
 version 1.2.1

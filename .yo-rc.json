@@ -2,9 +2,9 @@
   "generator-ngx-app": {
     "version": "1.2.1",
     "props": {
-      "appName": "TerradueDockerMonitoring",
+      "appName": "DockerMonitoring",
       "auth": false,
-      "projectName": "terradue-docker-monitoring"
+      "projectName": "docker-monitoring"
     }
   }
 }
