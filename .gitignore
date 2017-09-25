@@ -67,6 +67,8 @@ typings/
 *.iml
 out
 gen### Example user template template
+.idea/misc.xml
+.idea/workspace.xml
 ### Example user template
 
 # IntelliJ project files

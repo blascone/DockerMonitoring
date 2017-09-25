@@ -17,7 +17,7 @@ import {DockerComponent} from "./docker/docker/docker.component";
 export class DashboardComponent implements OnInit, AfterViewChecked {
   connection: any;
 
-  dockerConsole: string;
+  dockerConsole: string = "";
 
   dockerNodes: Map<string, Docker> = new Map<string, Docker>();
 
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
   constructor(private dockeMonitoring: DockerMonitorService) {
 
     this.sampleMap = new Map();
-    this.sampleMap.set('Some Key', 'Some Value');
+
 
 
     this.dockerNodes = new Map<string,Docker>();

@@ -8,7 +8,7 @@ let Docker = require('dockerode');
 let DockerEvents = require('docker-events')
 
 
-//let docker = new Docker({socketPath: '/var/run/docker.sock'});
+let docker = new Docker({socketPath: '/var/run/docker.sock'});
 
 
 let runningDockers = [];
@@ -17,13 +17,11 @@ io.on('connection', (socket) => {
   console.log('user connected');
 
 
-
   socket.on('disconnect', function () {
     console.log('user disconnected');
   });
 
 });
-
 
 
 var rootNamespace = io.of('/');
@@ -101,6 +99,94 @@ http.listen(5000, () => {
 
 app.get('/runningDockers', function (req, res) {
   res.send(runningDockers);
+});
+
+
+app.get('/stop/:containerId', function (req, res) {
+  var containerId = req.params.containerId;
+  console.log("stopping docker: " + containerId);
+
+  // create a container entity. does not query API
+  var container = docker.getContainer(containerId);
+
+
+  var inspectPromise = function () {
+    let promise = new Promise(function (resolve, reject) {
+      // query API for container info
+      console.log("inspecting");
+      container.inspect(function (err, data) {
+        if (data) {
+          resolve(data);
+        }
+        if (err) {
+          console.error(err.json);
+          reject(err);
+
+        }
+      });
+    });
+    return promise
+  };
+
+
+  var stopPromise = function () {
+    let promise = new Promise(function (resolve, reject) {
+      // query API for container info
+      console.log("stopping");
+      container.stop(function (err, data) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve("Success!");
+          res.send("Success!");
+        }
+      });
+    });
+    return promise
+  };
+
+
+  inspectPromise()
+    .then(stopPromise)
+    .catch(function (err) {
+      res.status(500).send(err);
+    });
+
+
+});
+
+
+app.get('/startDocker', function (req, res) {
+
+
+
+  // promises are supported
+  docker.createContainer({
+    Image: 'centos',
+    AttachStdin: false,
+    AttachStdout: true,
+    AttachStderr: true,
+    Tty: true,
+    Cmd: ['/bin/bash', '-c', 'tail -f /var/log/dmesg'],
+    OpenStdin: false,
+    StdinOnce: false
+  }).then(function (container) {
+    return container.start();
+  }).then(function (container) {
+    return container.resize({
+      h: process.stdout.rows,
+      w: process.stdout.columns
+    });
+  }).then(function (container) {
+    return container.stop();
+  }).then(function (container) {
+    return container.remove();
+  }).then(function (data) {
+    console.log('container removed');
+  }).catch(function (err) {
+    console.log(err);
+  });
+
 });
 
 

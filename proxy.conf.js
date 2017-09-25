@@ -10,7 +10,7 @@ const HttpsProxyAgent = require('https-proxy-agent');
  */
 const proxyConfig = [
   {
-    context: '/api/runningDockers',
+    context: '/api/',
     target: 'http://0.0.0.0:5000',
     secure: false,
     changeOrigin: true,
